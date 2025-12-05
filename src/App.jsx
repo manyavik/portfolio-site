@@ -221,20 +221,54 @@ export default function App() {
 
         {/* Projects Section */}
         <section id="projects" className="py-20 border-t border-gray-100 scroll-mt-24">
-          <h2 className="text-3xl font-light text-gray-900 mb-12">Projects</h2>
-          
-          <div className="space-y-16">
-            {/* Grocery App */}
-            <div>
-              <h3 className="text-xl font-medium text-gray-900 mb-2">Grocery Optimization Application</h3>
-              <p className="text-sm text-gray-500 mb-4">Java, JavaFX, APIs</p>
-              <p className="text-gray-700 leading-relaxed">
-                Developed a Java-based application to optimize grocery purchases by mapping recipe ingredients to products 
-                and displaying affordable options. Integrated Spoonacular and UPC Database APIs.
+          <h2 className="text-3xl font-light text-gray-900 mb-4">Projects</h2>
+          <p className="text-sm text-gray-500 mb-10">
+            A few things I&apos;ve built across software engineering, product thinking, and FinTech.
+          </p>
+
+          <div className="space-y-10">
+            {/* RoommateHub */}
+            <div className="border border-gray-100 rounded-xl p-6 hover:shadow-sm transition-shadow">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
+                <h3 className="text-xl font-medium text-gray-900">RoommateHub</h3>
+                <div className="flex flex-wrap gap-2 text-xs">
+                  <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">iOS</span>
+                  <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">SWE</span>
+                  <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">FinTech</span>
+                </div>
+              </div>
+              <p className="text-sm text-gray-500 mb-3">
+                SwiftUI · Firebase Realtime DB · Firebase Auth · Stripe · WidgetKit
+              </p>
+              <p className="text-gray-700 text-sm leading-relaxed">
+                iOS widget for household management and expense splitting. Supports real-time shared
+                tasks, synced state across roommates, and secure cost splitting via Stripe-backed
+                payment flows using Firebase Cloud Functions.
+              </p>
+            </div>
+
+            {/* KPI Dashboard */}
+            <div className="border border-gray-100 rounded-xl p-6 hover:shadow-sm transition-shadow">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
+                <h3 className="text-xl font-medium text-gray-900">KPI Dashboard for Cloud Consulting Team</h3>
+                <div className="flex flex-wrap gap-2 text-xs">
+                  <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">Web</span>
+                  <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">SWE</span>
+                  <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">Data</span>
+                </div>
+              </div>
+              <p className="text-sm text-gray-500 mb-3">
+                React · Django · NeonDB (Postgres) · Azure
+              </p>
+              <p className="text-gray-700 text-sm leading-relaxed">
+                Built a full-stack dashboard to surface client and project KPIs for a consulting team,
+                including API-driven data pipelines, KPI definitions, and role-based access to metrics.
+                Deployed to Azure with environment-based configs.
               </p>
             </div>
           </div>
         </section>
+
 
         {/* Skills Section */}
         <section id="skills" className="py-20 border-t border-gray-100 scroll-mt-24">
