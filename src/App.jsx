@@ -1,322 +1,333 @@
-import React, { useState, useEffect } from 'react';
-import { ExternalLink } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, ExternalLink, Github } from 'lucide-react';
 
 export default function App() {
-  const [activeSection, setActiveSection] = useState('about');
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [filter, setFilter] = useState(null);
 
-  // Track active section on scroll
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['about', 'experience', 'leadership', 'projects', 'skills'];
-      const current = sections.find(section => {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
-        }
-        return false;
-      });
-      if (current) setActiveSection(current);
-    };
+  const projects = [
+    {
+      id: 'visa',
+      title: 'Visa DPS FinTech Consulting',
+      type: 'popup',
+      description: 'Led technical analysis of competitor technology providers for Visa Debit Processing Services. Conducted comprehensive research and presented strategic recommendations to executives.',
+      keywords: { product: ['strategic', 'research', 'recommendations'], swe: ['technical', 'analysis'], fintech: ['Visa', 'FinTech', 'Debit Processing'] },
+      tags: ['Consulting', 'FinTech', 'Research'],
+      image: 'visa-team',
+      content: {
+        images: ['visa-team', 'visa-timeline', 'visa-takeaways'],
+        details: 'Worked with cross-functional team to analyze issuer processing ecosystem, map competitor capabilities, and identify opportunities for Visa DPS to strengthen their B2B positioning through AI-powered fraud tools and digital offerings.'
+      }
+    },
+    {
+      id: 'cirrus',
+      title: 'CirrusLabs KPI Dashboard',
+      type: 'popup',
+      description: 'Built full-stack KPI dashboard for company-wide performance tracking. Used React, Django, NeonDB, and deployed to Microsoft Azure.',
+      keywords: { product: ['dashboard', 'performance tracking'], swe: ['full-stack', 'React', 'Django', 'NeonDB', 'Azure'], fintech: [] },
+      tags: ['Full-Stack', 'React', 'Django', 'Azure'],
+      image: 'cirrus-cover',
+      content: {
+        images: [],
+        details: 'Developed scalable dashboard aggregating data from multiple sources. Contributed to Lockthreat GRC enterprise compliance tool and presented live demo at cybersecurity conference.'
+      }
+    },
+    {
+      id: 'roommate',
+      title: 'RoommateHub',
+      type: 'link',
+      link: 'https://github.com/yourusername/roommatehub',
+      description: 'Platform connecting UGA students with compatible roommates through intelligent matching based on lifestyle preferences and habits.',
+      keywords: { product: ['Platform', 'matching', 'preferences'], swe: ['intelligent'], fintech: [] },
+      tags: ['Personal Project', 'Full-Stack', 'Product Design'],
+      image: 'roommate-cover'
+    },
+    {
+      id: 'ktp',
+      title: 'Co-Founded Kappa Theta Pi',
+      type: 'link',
+      link: 'https://ktpgeorgia.com',
+      description: 'Co-founded technology fraternity at UGA. Grew to 50+ members in inaugural year. Lead professional development and portfolio website initiative for art students.',
+      keywords: { product: ['Co-founded', 'Grew', 'professional development'], swe: ['technology', 'website'], fintech: [] },
+      tags: ['Leadership', 'Community Building'],
+      image: 'ktp-cover'
+    },
+    {
+      id: 'shecancode',
+      title: 'SheCanCode Treasurer',
+      type: 'link',
+      link: 'https://www.uga-shecancode.dev',
+      description: 'Launched fundraising initiatives raising $500+. Manage budget for Women in CS mentorship program empowering women in technology.',
+      keywords: { product: ['Launched', 'fundraising', 'Manage budget', 'program'], swe: ['technology'], fintech: ['budget'] },
+      tags: ['Leadership', 'Finance'],
+      image: 'she-cover'
+    },
+    {
+      id: 'ai-research',
+      title: 'AI Research Assistant',
+      type: 'disabled',
+      description: 'Building intelligent research tools at UGA. More details coming soon.',
+      keywords: { product: ['research tools'], swe: ['Building', 'intelligent'], fintech: [] },
+      tags: ['AI/ML', 'Research', 'Coming Soon'],
+      image: 'ai-cover'
+    }
+  ];
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const highlightText = (text, keywords) => {
+    if (!filter) return text;
+    
+    const wordsToHighlight = keywords[filter] || [];
+    if (wordsToHighlight.length === 0) return text;
 
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    element?.scrollIntoView({ behavior: 'smooth' });
+    let result = text;
+    wordsToHighlight.forEach(word => {
+      const regex = new RegExp(`(${word})`, 'gi');
+      result = result.replace(regex, '<mark class="bg-pink-200 text-gray-900">$1</mark>');
+    });
+    
+    return <span dangerouslySetInnerHTML={{ __html: result }} />;
   };
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Sticky Navigation */}
-      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
-        <div className="max-w-4xl mx-auto px-8 py-6 flex items-center justify-between">
-          <button 
-            onClick={() => scrollToSection('about')}
-            className="text-lg font-medium hover:opacity-60 transition-opacity"
-          >
-            Manya Vikram
-          </button>
+      {/* Hero Section */}
+      <section className="max-w-6xl mx-auto px-8 py-20">
+        <div className="flex items-start gap-12 mb-12">
+          {/* Profile Photo Placeholder */}
+          <div className="w-48 h-48 rounded-full bg-gray-200 flex-shrink-0 flex items-center justify-center overflow-hidden">
+            <span className="text-sm text-gray-400">Add your photo here</span>
+            {/* TO ADD YOUR PHOTO: Replace this div with: <img src="your-photo.jpg" alt="Manya Vikram" className="w-full h-full object-cover" /> */}
+          </div>
           
-          <div className="flex gap-8 text-sm">
-            {['About', 'Experience', 'Leadership', 'Projects', 'Skills'].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item.toLowerCase())}
-                className={`hover:opacity-60 transition-opacity relative ${
-                  activeSection === item.toLowerCase() ? 'text-gray-900 font-medium' : 'text-gray-500'
-                }`}
-              >
-                {item}
-                {activeSection === item.toLowerCase() && (
-                  <span className="absolute -bottom-[25px] left-0 w-full h-0.5 bg-gray-900"></span>
-                )}
-              </button>
-            ))}
+          <div className="flex-1">
+            <h1 className="text-6xl font-light text-gray-900 mb-4">
+              Manya Vikram
+            </h1>
+            <p className="text-xl text-gray-600 mb-6">
+              CS + FinTech @ University of Georgia
+            </p>
+            <p className="text-lg text-gray-700 leading-relaxed max-w-2xl mb-6">
+              I build products at the intersection of technology and finance. From consulting for Visa on competitive positioning 
+              to developing full-stack dashboards at CirrusLabs, I'm passionate about creating solutions that solve real problems. 
+              Currently seeking opportunities where I can continue learning and building meaningful products.
+            </p>
+            <div className="flex gap-6 text-sm">
+              <a href="mailto:manyavikram30@gmail.com" className="text-gray-600 hover:text-pink-500 underline underline-offset-4 transition-colors">
+                Email
+              </a>
+              <a href="https://linkedin.com/in/manya-vikram-bb0652220" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500 underline underline-offset-4 transition-colors">
+                LinkedIn
+              </a>
+              <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500 underline underline-offset-4 transition-colors">
+                GitHub
+              </a>
+              <a href="https://docs.google.com/document/d/180aJI64cyjPJ2b-or9-uTTdq_aZl-tE_W2Df9TZPcao/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500 underline underline-offset-4 transition-colors">
+                Resume
+              </a>
+            </div>
           </div>
         </div>
-      </nav>
+      </section>
 
-      {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-8 pt-32">
+      {/* Filter Bar */}
+      <section className="max-w-6xl mx-auto px-8 py-6 border-y border-gray-100">
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-gray-500 mr-4">Filter by role:</span>
+          <button
+            onClick={() => setFilter(filter === 'product' ? null : 'product')}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              filter === 'product' 
+                ? 'bg-pink-500 text-white' 
+                : 'bg-gray-100 text-gray-700 hover:bg-pink-100 hover:text-pink-700'
+            }`}
+          >
+            Product
+          </button>
+          <button
+            onClick={() => setFilter(filter === 'swe' ? null : 'swe')}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              filter === 'swe' 
+                ? 'bg-pink-500 text-white' 
+                : 'bg-gray-100 text-gray-700 hover:bg-pink-100 hover:text-pink-700'
+            }`}
+          >
+            Software Engineering
+          </button>
+          <button
+            onClick={() => setFilter(filter === 'fintech' ? null : 'fintech')}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              filter === 'fintech' 
+                ? 'bg-pink-500 text-white' 
+                : 'bg-gray-100 text-gray-700 hover:bg-pink-100 hover:text-pink-700'
+            }`}
+          >
+            FinTech
+          </button>
+          {filter && (
+            <button
+              onClick={() => setFilter(null)}
+              className="ml-2 text-xs text-gray-500 hover:text-gray-700"
+            >
+              Clear
+            </button>
+          )}
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section className="max-w-6xl mx-auto px-8 py-12">
+        <h2 className="text-4xl font-light text-gray-900 mb-12">Projects</h2>
         
-        {/* About Section */}
-        <section id="about" className="py-20 scroll-mt-24">
-          <h1 className="text-5xl font-light text-gray-900 mb-4">
-            Manya Vikram
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            CS + FinTech @ University of Georgia
-          </p>
-          <p className="text-lg text-gray-700 leading-relaxed max-w-2xl">
-            I'm interested in building products at the intersection of technology and finance. 
-            Currently seeking SWE and Product Management internships where I can work on meaningful problems 
-            with experienced teams.
-          </p>
-          <div className="flex gap-6 mt-8 text-sm">
-            <a href="mailto:manyavikram30@gmail.com" className="text-gray-600 hover:text-gray-900 underline underline-offset-4">
-              Email
-            </a>
-            <a href="https://linkedin.com/in/manya-vikram-bb0652220" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 underline underline-offset-4">
-              LinkedIn
-            </a>
-            <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 underline underline-offset-4">
-              GitHub
-            </a>
-            <a href="https://docs.google.com/document/d/180aJI64cyjPJ2b-or9-uTTdq_aZl-tE_W2Df9TZPcao/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900 underline underline-offset-4">
-              Resume
-            </a>
-          </div>
-        </section>
-
-        {/* Experience Section */}
-        <section id="experience" className="py-20 border-t border-gray-100 scroll-mt-24">
-          <h2 className="text-3xl font-light text-gray-900 mb-12">Experience</h2>
-          
-          <div className="space-y-16">
-            {/* CirrusLabs */}
-            <div>
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-medium text-gray-900">Software Development Intern</h3>
-                  <p className="text-gray-600">CirrusLabs</p>
-                </div>
-                <p className="text-sm text-gray-500">May - Aug 2025</p>
-              </div>
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Built a KPI dashboard using React, Django, NeonDB, and Python, deployed to Azure. 
-                Contributed to Lockthreat GRC enterprise compliance tool and presented at cybersecurity demo.
-              </p>
-            </div>
-
-            {/* Visa */}
-            <div>
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-medium text-gray-900">Financial Technology Consultant</h3>
-                  <p className="text-gray-600">Visa</p>
-                </div>
-                <p className="text-sm text-gray-500">Jan - May 2025</p>
-              </div>
-              <p className="text-gray-700 leading-relaxed mb-6">
-                Performed technical analysis of competitor technology providers and API integrations. 
-                Mapped debit processing workflows and proposed automation solutions. 
-                Presented findings to Visa DPS executives.
-              </p>
-              {/* Visa Images Placeholder */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-                  <span className="text-xs text-gray-400">Team Photo</span>
-                </div>
-                <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-                  <span className="text-xs text-gray-400">Timeline</span>
-                </div>
-                <div className="aspect-video bg-gray-100 rounded-lg flex items-center justify-center">
-                  <span className="text-xs text-gray-400">Takeaways</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Data Annotation */}
-            <div>
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-medium text-gray-900">AI Trainer</h3>
-                  <p className="text-gray-600">Data Annotation Tech</p>
-                </div>
-                <p className="text-sm text-gray-500">Jan 2024 - Present</p>
-              </div>
-              <p className="text-gray-700 leading-relaxed">
-                Curate datasets to improve NLP accuracy in entity recognition and sentiment analysis. 
-                Streamline data labeling workflows and maintain quality standards.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Leadership Section */}
-        <section id="leadership" className="py-20 border-t border-gray-100 scroll-mt-24">
-          <h2 className="text-3xl font-light text-gray-900 mb-12">Leadership</h2>
-          
-          <div className="space-y-16">
-            {/* KTP */}
-            <div>
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-xl font-medium text-gray-900">Kappa Theta Pi</h3>
-                    <a href="https://ktpgeorgia.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-900">
-                      <ExternalLink size={18} />
-                    </a>
+        <div className="grid grid-cols-3 gap-4">
+          {projects.map((project) => (
+            <div
+              key={project.id}
+              onClick={() => {
+                if (project.type === 'popup') {
+                  setSelectedProject(project);
+                } else if (project.type === 'link') {
+                  window.open(project.link, '_blank');
+                }
+              }}
+              className={`group border border-gray-200 rounded-lg overflow-hidden transition-all ${
+                project.type === 'disabled' 
+                  ? 'opacity-50 cursor-not-allowed' 
+                  : 'hover:shadow-xl hover:-translate-y-1 cursor-pointer hover:border-pink-200'
+              }`}
+            >
+              {/* Project Image */}
+              <div className="aspect-video bg-gray-100 flex items-center justify-center relative overflow-hidden">
+                {project.id === 'visa' ? (
+                  <div className="w-full h-full bg-gradient-to-br from-blue-900 to-blue-700 flex items-center justify-center">
+                    <span className="text-white text-2xl font-bold">VISA DPS</span>
+                    {/* TO ADD ACTUAL VISA PHOTO: Replace this div with your uploaded image */}
                   </div>
-                  <p className="text-gray-600">Co-Founder & VP of Professional Development</p>
-                </div>
-                <p className="text-sm text-gray-500">Sept 2024 - Present</p>
-              </div>
-              <p className="text-gray-700 leading-relaxed">
-                Lead professional development: workshops, speakers, hackathons. 
-                Grew membership to 50+ students in inaugural year. 
-                Co-leading portfolio website development for art students.
-              </p>
-            </div>
-
-            {/* SheCanCode */}
-            <div>
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-xl font-medium text-gray-900">SheCanCode</h3>
-                    <a href="https://www.uga-shecancode.dev" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-gray-900">
-                      <ExternalLink size={18} />
-                    </a>
+                ) : (
+                  <span className="text-sm text-gray-400">{project.title}</span>
+                )}
+                {project.type === 'link' && (
+                  <div className="absolute top-3 right-3 bg-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
+                    {project.link?.includes('github') ? <Github size={18} /> : <ExternalLink size={18} />}
                   </div>
-                  <p className="text-gray-600">Treasurer</p>
-                </div>
-                <p className="text-sm text-gray-500">Sept 2024 - Present</p>
+                )}
               </div>
-              <p className="text-gray-700 leading-relaxed">
-                Raised $500+ through fundraising initiatives. 
-                Manage budget for Women in CS mentorship program.
-              </p>
+              
+              {/* Project Info */}
+              <div className="p-6">
+                <h3 className="text-xl font-medium text-gray-900 mb-2">{project.title}</h3>
+                <p className="text-sm text-gray-600 leading-relaxed mb-4">
+                  {highlightText(project.description, project.keywords)}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <span key={tag} className="px-3 py-1 bg-pink-50 text-pink-700 text-xs rounded-full border border-pink-200">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
+          ))}
+        </div>
+      </section>
 
-            {/* Terry FinTech */}
-            <div>
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-medium text-gray-900">Terry FinTech Society</h3>
-                  <p className="text-gray-600">Member</p>
-                </div>
-                <p className="text-sm text-gray-500">Jan 2024 - Present</p>
-              </div>
-              <p className="text-gray-700 leading-relaxed">
-                Developed algorithms to monitor 10+ cryptocurrencies. 
-                Presented portfolio strategy for mock trading competition.
-              </p>
+      {/* Skills Section */}
+      <section className="max-w-6xl mx-auto px-8 py-16 border-t border-gray-100">
+        <h2 className="text-3xl font-light text-gray-900 mb-8">Skills</h2>
+        
+        <div className="grid grid-cols-3 gap-12">
+          <div>
+            <h3 className="text-sm font-semibold text-pink-600 uppercase tracking-wider mb-4">Languages</h3>
+            <div className="flex flex-wrap gap-2">
+              {['Java', 'Python', 'JavaScript', 'HTML/CSS', 'SQL', 'LaTeX'].map(skill => (
+                <span key={skill} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded">
+                  {skill}
+                </span>
+              ))}
             </div>
           </div>
-        </section>
-
-        {/* Projects Section */}
-        <section id="projects" className="py-20 border-t border-gray-100 scroll-mt-24">
-          <h2 className="text-3xl font-light text-gray-900 mb-4">Projects</h2>
-          <p className="text-sm text-gray-500 mb-10">
-            A few things I&apos;ve built across software engineering, product thinking, and FinTech.
-          </p>
-
-          <div className="space-y-10">
-            {/* RoommateHub */}
-            <div className="border border-gray-100 rounded-xl p-6 hover:shadow-sm transition-shadow">
-              <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
-                <h3 className="text-xl font-medium text-gray-900">RoommateHub</h3>
-                <div className="flex flex-wrap gap-2 text-xs">
-                  <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">iOS</span>
-                  <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">SWE</span>
-                  <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">FinTech</span>
-                </div>
-              </div>
-              <p className="text-sm text-gray-500 mb-3">
-                SwiftUI · Firebase Realtime DB · Firebase Auth · Stripe · WidgetKit
-              </p>
-              <p className="text-gray-700 text-sm leading-relaxed">
-                iOS widget for household management and expense splitting. Supports real-time shared
-                tasks, synced state across roommates, and secure cost splitting via Stripe-backed
-                payment flows using Firebase Cloud Functions.
-              </p>
-            </div>
-
-            {/* KPI Dashboard */}
-            <div className="border border-gray-100 rounded-xl p-6 hover:shadow-sm transition-shadow">
-              <div className="flex flex-wrap items-center justify-between gap-3 mb-2">
-                <h3 className="text-xl font-medium text-gray-900">KPI Dashboard for Cloud Consulting Team</h3>
-                <div className="flex flex-wrap gap-2 text-xs">
-                  <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">Web</span>
-                  <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">SWE</span>
-                  <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-700">Data</span>
-                </div>
-              </div>
-              <p className="text-sm text-gray-500 mb-3">
-                React · Django · NeonDB (Postgres) · Azure
-              </p>
-              <p className="text-gray-700 text-sm leading-relaxed">
-                Built a full-stack dashboard to surface client and project KPIs for a consulting team,
-                including API-driven data pipelines, KPI definitions, and role-based access to metrics.
-                Deployed to Azure with environment-based configs.
-              </p>
-            </div>
-          </div>
-        </section>
-
-
-        {/* Skills Section */}
-        <section id="skills" className="py-20 border-t border-gray-100 scroll-mt-24">
-          <h2 className="text-3xl font-light text-gray-900 mb-12">Skills</h2>
-          
-          <div className="grid grid-cols-2 gap-12">
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Languages</h3>
-              <p className="text-gray-700 leading-relaxed">
-                Java, Python, JavaScript, HTML/CSS, SQL, LaTeX
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="text-lg font-medium text-gray-900 mb-4">Tools & Frameworks</h3>
-              <p className="text-gray-700 leading-relaxed">
-                React, Django, MongoDB, Git, VS Code, Azure, AWS, Jira
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Education */}
-        <section className="py-20 border-t border-gray-100">
-          <h2 className="text-3xl font-light text-gray-900 mb-12">Education</h2>
           
           <div>
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <h3 className="text-xl font-medium text-gray-900">University of Georgia</h3>
-                <p className="text-gray-700">B.S. Computer Science</p>
-                <p className="text-gray-700">Minor in Business, Certificate in FinTech</p>
-              </div>
-              <p className="text-sm text-gray-500">Expected May 2027</p>
-            </div>
-            <div className="space-y-2 text-gray-700">
-              <p><span className="font-medium">Coursework:</span> Data Structures and Algorithms, Systems Programming, Applied Linear Algebra, Discrete Mathematics</p>
-              <p><span className="font-medium">Certifications:</span> AWS Cloud Practitioner</p>
+            <h3 className="text-sm font-semibold text-pink-600 uppercase tracking-wider mb-4">Frameworks & Tools</h3>
+            <div className="flex flex-wrap gap-2">
+              {['React', 'Django', 'MongoDB', 'Git', 'GitHub', 'Azure', 'AWS'].map(skill => (
+                <span key={skill} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded">
+                  {skill}
+                </span>
+              ))}
             </div>
           </div>
-        </section>
 
-      </main>
+          <div>
+            <h3 className="text-sm font-semibold text-pink-600 uppercase tracking-wider mb-4">Other</h3>
+            <div className="flex flex-wrap gap-2">
+              {['VS Code', 'Jira', 'Agile/Scrum', 'Product Management'].map(skill => (
+                <span key={skill} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Project Popup Modal */}
+      {selectedProject && selectedProject.type === 'popup' && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="bg-white max-w-3xl w-full max-h-[85vh] overflow-y-auto rounded-lg shadow-2xl">
+            <div className="sticky top-0 bg-white border-b border-pink-200 p-6 flex items-center justify-between z-10">
+              <h2 className="text-2xl font-medium">{selectedProject.title}</h2>
+              <button onClick={() => setSelectedProject(null)} className="hover:opacity-60 transition-opacity">
+                <X size={24} />
+              </button>
+            </div>
+            
+            <div className="p-8 space-y-6">
+              <p className="text-gray-700 leading-relaxed">{selectedProject.content.details}</p>
+              
+              {/* Project Images */}
+              {selectedProject.id === 'visa' && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-medium text-gray-900">Project Highlights</h3>
+                  <div className="space-y-4">
+                    <div className="rounded-lg overflow-hidden border border-gray-200">
+                      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect fill='%23f3f4f6' width='800' height='600'/%3E%3Ctext x='50%25' y='50%25' font-size='16' fill='%239ca3af' text-anchor='middle' dominant-baseline='middle'%3EVisa Team Photo - Upload your image here%3C/text%3E%3C/svg%3E" alt="Visa Team" className="w-full" />
+                      {/* TO ADD: Replace src with your actual image file */}
+                    </div>
+                    <div className="rounded-lg overflow-hidden border border-gray-200">
+                      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect fill='%23f3f4f6' width='800' height='600'/%3E%3Ctext x='50%25' y='50%25' font-size='16' fill='%239ca3af' text-anchor='middle' dominant-baseline='middle'%3EProject Timeline - Upload your image here%3C/text%3E%3C/svg%3E" alt="Timeline" className="w-full" />
+                    </div>
+                    <div className="rounded-lg overflow-hidden border border-gray-200">
+                      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600'%3E%3Crect fill='%23f3f4f6' width='800' height='600'/%3E%3Ctext x='50%25' y='50%25' font-size='16' fill='%239ca3af' text-anchor='middle' dominant-baseline='middle'%3EKey Takeaways - Upload your image here%3C/text%3E%3C/svg%3E" alt="Takeaways" className="w-full" />
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {selectedProject.id === 'cirrus' && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-medium text-gray-900">Dashboard Wireframes</h3>
+                  <p className="text-sm text-gray-500 italic">Add your wireframe images here when ready</p>
+                </div>
+              )}
+            </div>
+
+            <div className="sticky bottom-0 bg-white border-t border-pink-200 p-4 text-center">
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="px-8 py-3 bg-pink-500 text-white font-medium hover:bg-pink-600 transition-colors rounded-lg"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
-      <footer className="max-w-4xl mx-auto px-8 py-12 border-t border-gray-100">
+      <footer className="max-w-6xl mx-auto px-8 py-12 border-t border-gray-100 mt-20">
         <p className="text-sm text-gray-500 text-center">
-          © 2024 Manya Vikram
+          © 2024 Manya Vikram • Built with React
         </p>
       </footer>
     </div>
