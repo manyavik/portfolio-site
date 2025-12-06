@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { X, ExternalLink, Github } from 'lucide-react';
-import visaTeamImg from "./assets/images/visa-team.webp";
-import visaTimeline from "./assets/images/visa-timeline.webp";
-import visaTakeaways from "./assets/images/visa-takeaways.webp";
+import visaTeamImg from "./assets/images/visa/visa-team.webp";
+import visaTimeline from "./assets/images/visa/visa-timeline.jpg";
+import visaTakeaways from "./assets/images/visa/visa-takeaways.webp";
 import mainPic from "./assets/images/main-pic.jpg";
 
 export default function App() {
@@ -20,15 +20,34 @@ export default function App() {
   const projects = [
     {
       id: 'visa',
-      title: 'Visa DPS FinTech Consulting',
+      title: 'Visa FinTech Consulting',
       type: 'popup',
       description: 'Led technical analysis of competitor technology providers for Visa Debit Processing Services. Conducted comprehensive research and presented strategic recommendations to executives.',
       keywords: { product: ['strategic', 'research', 'recommendations'], swe: ['technical', 'analysis'], fintech: ['Visa', 'FinTech', 'Debit Processing'] },
       tags: ['Consulting', 'FinTech', 'Research'],
       image: 'visa-team',
       content: {
-        images: ['visa-team', 'visa-timeline', 'visa-takeaways'],
-        details: 'Worked with cross-functional team to analyze issuer processing ecosystem, map competitor capabilities, and identify opportunities for Visa DPS to strengthen their B2B positioning through AI-powered fraud tools and digital offerings.'
+        details: 'Worked with cross-functional team to analyze issuer processing ecosystem, map competitor capabilities, and identify opportunities for Visa DPS to strengthen their B2B positioning through AI-powered fraud tools and digital offerings.',
+        blocks: [
+          {
+            id: 'timeline',
+            label: 'Project Timeline',
+            image: visaTimeline,
+            caption: 'How the engagement...'
+          },
+          {
+            id: 'solution',
+            label: 'Our Solution',
+            image: visaTakeaways,   // your “our solution” image
+            caption: 'High-level view of our'
+          },
+          {
+            id: 'final',
+            label: 'Final Presentation',
+            image: visaTeamImg,      // group / presentation note
+            caption: 'Snapshot from the final'
+          }
+        ]
       }
     },
     {
@@ -85,6 +104,24 @@ export default function App() {
     }
   ];
 
+  const visaBlocks = [
+    {
+      id: 'timeline',
+      image: visaTimeline, // your existing image import
+      caption: 'hello'
+    },
+    {
+      id: 'solution',
+      image: visaTakeaways,
+      caption: 'High-level view of our recommended positioning, capability gaps, and AI-powered opportunities.'
+    },
+    {
+      id: 'final',
+      image: visaTeamImg,
+      caption: 'Snapshot from our final presentation to Visa DPS leadership (aka group photo time ✨).'
+    }
+  ];
+
   const highlightText = (text, keywords) => {
     if (!filter) return text;
     
@@ -136,7 +173,10 @@ export default function App() {
       
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="max-w-6xl mx-auto px-8 py-10">
+        <section
+          id="about"
+          className="max-w-6xl mx-auto px-8 py-10 scroll-mt-24"
+        >
           <div className="flex items-center gap-10">
             {/* Profile Photo */}
             <div className="flex-shrink-0">
@@ -151,8 +191,8 @@ export default function App() {
 
             {/* Text Section */}
             <div className="flex-1">
-              <h1 className="text-5xl font-light text-gray-900 mb-3">
-                Manya Vikram
+              <h1 className="text-5xl font-light mb-3">
+                <span className="gradient-name">Manya Vikram</span>
               </h1>
 
               <p className="text-lg text-gray-600 mb-4">
@@ -307,7 +347,10 @@ export default function App() {
 
 
         {/* Skills Section */}
-        <section className="max-w-6xl mx-auto px-8 py-16 border-t border-gray-100">
+        <section
+          id="skills"
+          className="max-w-6xl mx-auto px-8 py-16 border-t border-gray-100 scroll-mt-24"
+        >
           <h2 className="text-3xl font-light text-gray-900 mb-8">Skills</h2>
           
           <div className="grid grid-cols-3 gap-12">
@@ -357,35 +400,52 @@ export default function App() {
                 </button>
               </div>
               
-              <div className="p-8 space-y-6">
-                <p className="text-gray-700 leading-relaxed">{selectedProject.content.details}</p>
-                
-                {/* Project Images */}
+              <div className="p-4 md:p-6">
                 {selectedProject.id === 'visa' && (
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-medium text-gray-900">Project Highlights</h3>
-                    <div className="space-y-4">
-                      <div className="rounded-lg overflow-hidden border border-gray-200">
-                        {/*insert image*/}
-                        <img src={visaTimeline} alt="Visa Timeline" className="w-full" />
-                      </div>
-                      <div className="rounded-lg overflow-hidden border border-gray-200">
-                        <img src={visaTakeaways} alt="Key Takeaways" className="w-full" />
-                      </div>
-                      <div className="rounded-lg overflow-hidden border border-gray-200">
-                        <img src={visaTeamImg} alt="Team" className="w-full" />
-                      </div>
+                  <div className="grid-paper rounded-3xl p-2 md:p-3">
+                    <div
+                      className="
+                        flex gap-4 overflow-x-auto
+                        snap-x snap-mandatory
+                        pb-4
+                      "
+                    >
+                      {visaBlocks.map((block, index) => (
+                        <div
+                          key={block.id}
+                          className="
+                            visa-block flex-shrink-0
+                            basis-[92%] md:basis-[88%] lg:basis-[85%]
+                            snap-start
+                          "
+                          style={{ animationDelay: `${index * 120}ms` }}
+                        >
+                          <div
+                            className="
+                              rounded-2xl overflow-hidden
+                              shadow-sm
+                              w-full h-[60vh]
+                              md:h-[65vh] lg:h-[50vh]
+                            "
+                          >
+                            <img
+                              src={block.image}
+                              alt=""
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  </div>
-                )}
-                
-                {selectedProject.id === 'cirrus' && (
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-medium text-gray-900">Dashboard Wireframes</h3>
-                    <p className="text-sm text-gray-500 italic">Add your wireframe images here when ready</p>
+
+                    <p className="mt-1 text-xs text-gray-500 text-center">
+                      Scroll sideways to explore the project!
+                    </p>
                   </div>
                 )}
               </div>
+
+
 
               <div className="sticky bottom-0 bg-white border-t border-pink-200 p-4 text-center">
                 <button
