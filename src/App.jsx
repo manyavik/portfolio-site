@@ -1,9 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, ExternalLink, Github } from 'lucide-react';
 import visaTeamImg from "./assets/images/visa/visa-team.webp";
-import visaTimeline from "./assets/images/visa/visa-timeline.jpg";
+import visaTimeline from "./assets/images/visa/visa-timeline.webp";
 import visaTakeaways from "./assets/images/visa/visa-takeaways.webp";
 import mainPic from "./assets/images/main-pic.jpg";
+import sheCanCodePic from "./assets/images/shecancode/shecancode.png";
+import ktpLogo from "./assets/images/ktp.png";
+import CLkpi from "./assets/images/CL/CL-kpi.png";
+import CLai from "./assets/images/CL/CL-ai.png";
+import CLazure from "./assets/images/CL/azure.png";
+
+/*typing animation*/
+function Typewriter({ text, speed = 100 }) {
+  const [displayed, setDisplayed] = useState('');
+
+  useEffect(() => {
+    setDisplayed('');
+    let i = 0;
+
+    const interval = setInterval(() => {
+      i += 1;
+      setDisplayed(text.slice(0, i));
+      if (i >= text.length) {
+        clearInterval(interval);
+      }
+    }, speed);
+
+    return () => clearInterval(interval);
+  }, [text, speed]);
+
+  return <span>{displayed}</span>;
+}
 
 export default function App() {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -25,30 +52,7 @@ export default function App() {
       description: 'Led technical analysis of competitor technology providers for Visa Debit Processing Services. Conducted comprehensive research and presented strategic recommendations to executives.',
       keywords: { product: ['strategic', 'research', 'recommendations'], swe: ['technical', 'analysis'], fintech: ['Visa', 'FinTech', 'Debit Processing'] },
       tags: ['Consulting', 'FinTech', 'Research'],
-      image: 'visa-team',
-      content: {
-        details: 'Worked with cross-functional team to analyze issuer processing ecosystem, map competitor capabilities, and identify opportunities for Visa DPS to strengthen their B2B positioning through AI-powered fraud tools and digital offerings.',
-        blocks: [
-          {
-            id: 'timeline',
-            label: 'Project Timeline',
-            image: visaTimeline,
-            caption: 'How the engagement...'
-          },
-          {
-            id: 'solution',
-            label: 'Our Solution',
-            image: visaTakeaways,   // your “our solution” image
-            caption: 'High-level view of our'
-          },
-          {
-            id: 'final',
-            label: 'Final Presentation',
-            image: visaTeamImg,      // group / presentation note
-            caption: 'Snapshot from the final'
-          }
-        ]
-      }
+      thumb: visaTeamImg
     },
     {
       id: 'cirrus',
@@ -57,7 +61,7 @@ export default function App() {
       description: 'Built full-stack KPI dashboard for company-wide performance tracking. Used React, Django, NeonDB, and deployed to Microsoft Azure.',
       keywords: { product: ['dashboard', 'performance tracking'], swe: ['full-stack', 'React', 'Django', 'NeonDB', 'Azure'], fintech: [] },
       tags: ['Full-Stack', 'React', 'Django', 'Azure'],
-      image: 'cirrus-cover',
+      thumb: CLkpi,
       content: {
         images: [],
         details: 'Developed scalable dashboard aggregating data from multiple sources. Contributed to Lockthreat GRC enterprise compliance tool and presented live demo at cybersecurity conference.'
@@ -67,7 +71,7 @@ export default function App() {
       id: 'roommate',
       title: 'RoommateHub',
       type: 'link',
-      link: 'https://github.com/yourusername/roommatehub',
+      link: 'https://github.com/manyavik/RoommateHub.git',
       description: 'Platform connecting UGA students with compatible roommates through intelligent matching based on lifestyle preferences and habits.',
       keywords: { product: ['Platform', 'matching', 'preferences'], swe: ['intelligent'], fintech: [] },
       tags: ['Personal Project', 'Full-Stack', 'Product Design'],
@@ -81,7 +85,7 @@ export default function App() {
       description: 'Co-founded technology fraternity at UGA. Grew to 50+ members in inaugural year. Lead professional development and portfolio website initiative for art students.',
       keywords: { product: ['Co-founded', 'Grew', 'professional development'], swe: ['technology', 'website'], fintech: [] },
       tags: ['Leadership', 'Community Building'],
-      image: 'ktp-cover'
+      thumb: ktpLogo
     },
     {
       id: 'shecancode',
@@ -91,7 +95,7 @@ export default function App() {
       description: 'Launched fundraising initiatives raising $500+. Manage budget for Women in CS mentorship program empowering women in technology.',
       keywords: { product: ['Launched', 'fundraising', 'Manage budget', 'program'], swe: ['technology'], fintech: ['budget'] },
       tags: ['Leadership', 'Finance'],
-      image: 'she-cover'
+      thumb: sheCanCodePic
     },
     {
       id: 'ai-research',
@@ -104,22 +108,52 @@ export default function App() {
     }
   ];
 
-  const visaBlocks = [
+  const visaSlides = [
     {
       id: 'timeline',
-      image: visaTimeline, // your existing image import
-      caption: 'hello'
+      image: visaTimeline,
+      heading: 'From discovery to ecosystem mapping',
+      body:
+        'Over a semester-long consulting engagement with Visa DPS, our team moved from discovery into issuer-processing ecosystem mapping and competitor research. I helped define the project milestones (kickoff, capability model, Harvey Balls analysis, final presentation) so we could track scope, responsibilities, and deliverables across the team.',
     },
     {
-      id: 'solution',
+      id: 'takeaways',
       image: visaTakeaways,
-      caption: 'High-level view of our recommended positioning, capability gaps, and AI-powered opportunities.'
+      heading: 'Synthesizing competitor research into clear takeaways',
+      body:
+        'Using a capability model comparing Visa DPS to major issuer processors, I helped synthesize our research into two buckets: unique strengths and areas to strengthen. I focused on fraud, digital banking platforms, and rewards, and our team recommended investing in AI-powered fraud tools and expanding digital offerings to strengthen Visa’s B2B positioning.',
     },
     {
       id: 'final',
       image: visaTeamImg,
-      caption: 'Snapshot from our final presentation to Visa DPS leadership (aka group photo time ✨).'
-    }
+      heading: 'Presenting recommendations to Visa DPS leadership',
+      body:
+        'At the end of the engagement, we presented our findings and recommendations to Visa DPS leaders, walking through our research, capability gaps, and proposed roadmap. The presentation reinforced how much I enjoy translating technical analysis into clear stories for non-technical stakeholders in the fintech space.',
+    },
+  ];
+
+  const cirrusLabsSlides = [
+    {
+      id: 'kpi',
+      image: CLkpi,
+      heading: 'From discovery to ecosystem mapping',
+      body:
+        'Over a semester-long consulting engagement with Visa DPS, our team moved from discovery into issuer-processing ecosystem mapping and competitor research. I helped define the project milestones (kickoff, capability model, Harvey Balls analysis, final presentation) so we could track scope, responsibilities, and deliverables across the team.',
+    },
+    {
+      id: 'azure',
+      image: CLazure,
+      heading: 'Synthesizing competitor research into clear takeaways',
+      body:
+        'Using a capability model comparing Visa DPS to major issuer processors, I helped synthesize our research into two buckets: unique strengths and areas to strengthen. I focused on fraud, digital banking platforms, and rewards, and our team recommended investing in AI-powered fraud tools and expanding digital offerings to strengthen Visa’s B2B positioning.',
+    },
+    {
+      id: 'ai',
+      image: CLai,
+      heading: 'Presenting recommendations to Visa DPS leadership',
+      body:
+        'At the end of the engagement, we presented our findings and recommendations to Visa DPS leaders, walking through our research, capability gaps, and proposed roadmap. The presentation reinforced how much I enjoy translating technical analysis into clear stories for non-technical stakeholders in the fintech space.',
+    },
   ];
 
   const highlightText = (text, keywords) => {
@@ -196,13 +230,13 @@ export default function App() {
               </h1>
 
               <p className="text-lg text-gray-600 mb-4">
-                CS + FinTech @ University of Georgia
+                <Typewriter text="CS + FinTech @ University of Georgia" />
               </p>
 
               <p className="text-lg text-gray-700 leading-relaxed max-w-xl mb-6">
-                I build products at the intersection of technology and finance. From consulting for Visa on competitive positioning 
-                to developing full-stack dashboards at CirrusLabs, I'm passionate about creating solutions that solve real problems. 
-                Currently seeking opportunities where I can continue learning and building meaningful products.
+                Hi there! I love building products at the intersection of technology and finance.
+I've explored through roles from technical analytics to software engineering to undergraduate AI research, and
+I'm always looking for opportunities where I can keep growing and create thoughtful products!
               </p>
 
               <div className="flex gap-6 text-sm">
@@ -303,20 +337,19 @@ export default function App() {
               >
                 {/* Project Image */}
                 <div className="aspect-video bg-gray-100 flex items-center justify-center relative overflow-hidden">
-                  {project.id === 'visa' ? (
-                    <img src={visaTeamImg} alt="Visa Team" className="w-full" />
+                  {project.thumb ? (
+                    <img
+                      src={project.thumb}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
                   ) : (
-                    <span className="text-sm text-gray-400">
-                      {project.title}
-                    </span>
+                    <span className="text-sm text-gray-400">{project.title}</span>
                   )}
+
                   {project.type === 'link' && (
                     <div className="absolute top-3 right-3 bg-white rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">
-                      {project.link?.includes('github') ? (
-                        <Github size={18} />
-                      ) : (
-                        <ExternalLink size={18} />
-                      )}
+                      {project.link?.includes('github') ? <Github size={18} /> : <ExternalLink size={18} />}
                     </div>
                   )}
                 </div>
@@ -400,47 +433,87 @@ export default function App() {
                 </button>
               </div>
               
-              <div className="p-4 md:p-6">
+              <div className="p-6 md:p-8">
+                <p className="mt-2 text-xs text-gray-500 text-center">
+                      Scroll sideways to walk through the project story.
+                    </p>
                 {selectedProject.id === 'visa' && (
-                  <div className="grid-paper rounded-3xl p-2 md:p-3">
+                  <div className="grid-paper rounded-3xl p-4 md:p-6">
                     <div
                       className="
-                        flex gap-4 overflow-x-auto
+                        flex gap-6 overflow-x-auto
                         snap-x snap-mandatory
-                        pb-4
+                        pb-4 -mx-2 px-2
                       "
                     >
-                      {visaBlocks.map((block, index) => (
+                      {visaSlides.map((slide, index) => (
                         <div
-                          key={block.id}
+                          key={slide.id}
                           className="
                             visa-block flex-shrink-0
-                            basis-[92%] md:basis-[88%] lg:basis-[85%]
+                            basis-[90%] md:basis-[70%] lg:basis-[60%]
                             snap-start
                           "
                           style={{ animationDelay: `${index * 120}ms` }}
                         >
-                          <div
-                            className="
-                              rounded-2xl overflow-hidden
-                              shadow-sm
-                              w-full h-[60vh]
-                              md:h-[65vh] lg:h-[50vh]
-                            "
-                          >
+                          <div className="bg-white rounded-2xl border border-pink-100 shadow-sm overflow-hidden flex flex-col">
                             <img
-                              src={block.image}
-                              alt=""
-                              className="w-full h-full object-contain"
+                              src={slide.image}
+                              alt={slide.heading}
+                              className="w-full object-contain max-h-[40vh] md:max-h-[55vh]"
                             />
+                            <div className="p-4 md:p-5 text-left">
+                              <h3 className="text-sm font-semibold text-gray-900 mb-1">
+                                {slide.heading}
+                              </h3>
+                              <p className="text-sm text-gray-700 leading-relaxed">
+                                {slide.body}
+                              </p>
+                            </div>
                           </div>
                         </div>
                       ))}
                     </div>
+                  </div>
+                )}
 
-                    <p className="mt-1 text-xs text-gray-500 text-center">
-                      Scroll sideways to explore the project!
-                    </p>
+                {selectedProject.id === 'cirrus' && (
+                  <div className="grid-paper rounded-3xl p-4 md:p-6">
+                    <div
+                      className="
+                        flex gap-6 overflow-x-auto
+                        snap-x snap-mandatory
+                        pb-4 -mx-2 px-2
+                      "
+                    >
+                      {cirrusLabsSlides.map((slide, index) => (
+                        <div
+                          key={slide.id}
+                          className="
+                            CL-block flex-shrink-0
+                            basis-[90%] md:basis-[70%] lg:basis-[60%]
+                            snap-start
+                          "
+                          style={{ animationDelay: `${index * 120}ms` }}
+                        >
+                          <div className="bg-white rounded-2xl border border-pink-100 shadow-sm overflow-hidden flex flex-col">
+                            <img
+                              src={slide.image}
+                              alt={slide.heading}
+                              className="w-full object-contain max-h-[40vh] md:max-h-[55vh]"
+                            />
+                            <div className="p-4 md:p-5 text-left">
+                              <h3 className="text-sm font-semibold text-gray-900 mb-1">
+                                {slide.heading}
+                              </h3>
+                              <p className="text-sm text-gray-700 leading-relaxed">
+                                {slide.body}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
