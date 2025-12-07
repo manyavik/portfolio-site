@@ -9,6 +9,7 @@ import ktpLogo from "./assets/images/ktp.png";
 import CLkpi from "./assets/images/CL/CL-kpi.png";
 import CLai from "./assets/images/CL/CL-ai.png";
 import CLazure from "./assets/images/CL/azure.png";
+import phoneShot from "./assets/images/app/phone.png";
 
 /*typing animation*/
 function Typewriter({ text, speed = 100 }) {
@@ -75,7 +76,7 @@ export default function App() {
       description: 'Platform connecting UGA students with compatible roommates through intelligent matching based on lifestyle preferences and habits.',
       keywords: { product: ['Platform', 'matching', 'preferences'], swe: ['intelligent'], fintech: [] },
       tags: ['Personal Project', 'Full-Stack', 'Product Design'],
-      image: 'roommate-cover'
+      thumb: phoneShot
     },
     {
       id: 'ktp',
@@ -136,23 +137,23 @@ export default function App() {
     {
       id: 'kpi',
       image: CLkpi,
-      heading: 'From discovery to ecosystem mapping',
+      heading: 'KPI Dashboard - Tracking What Matters',
       body:
-        'Over a semester-long consulting engagement with Visa DPS, our team moved from discovery into issuer-processing ecosystem mapping and competitor research. I helped define the project milestones (kickoff, capability model, Harvey Balls analysis, final presentation) so we could track scope, responsibilities, and deliverables across the team.',
+        'I built a real-time KPI dashboard using React, Django, and NeonDB to help engineering leadership monitor performance trends. The dashboard computes progress against defined targets and visualizes it with clean, accessible UI components. This improved transparency for developers and their managers by turning scattered data points into actionable insights, with our product replacing their old tracking system!',
     },
     {
       id: 'azure',
       image: CLazure,
-      heading: 'Synthesizing competitor research into clear takeaways',
+      heading: 'System Architecture - My Azure Learning Blueprint',
       body:
-        'Using a capability model comparing Visa DPS to major issuer processors, I helped synthesize our research into two buckets: unique strengths and areas to strengthen. I focused on fraud, digital banking platforms, and rewards, and our team recommended investing in AI-powered fraud tools and expanding digital offerings to strengthen Visa’s B2B positioning.',
+        'I created this architecture diagram as a way to teach my co-intern team how different Azure services interact in a real-world system. Whenever I learn new tech, I map out its components visually first, helping me understand data flow, authentication, and deployment pipelines before writing any code. This diagram reflects that same approach, aiding us in integrating our React frontend with Azure services.',
     },
     {
       id: 'ai',
       image: CLai,
       heading: 'Presenting recommendations to Visa DPS leadership',
       body:
-        'At the end of the engagement, we presented our findings and recommendations to Visa DPS leaders, walking through our research, capability gaps, and proposed roadmap. The presentation reinforced how much I enjoy translating technical analysis into clear stories for non-technical stakeholders in the fintech space.',
+        'This screen displays an AI-generated performance evaluation that synthesizes KPI data, peer feedback, and historical trends. I implemented the backend endpoints powering this feature, enabling automated recommendations for engineering growth areas. The result is a more consistent, unbiased evaluation flow that helps managers support their teams more effectively.'
     },
   ];
 
@@ -246,7 +247,7 @@ I'm always looking for opportunities where I can keep growing and create thought
                 <a href="https://linkedin.com/in/manya-vikram-bb0652220" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500 underline underline-offset-4 transition-colors">
                   LinkedIn
                 </a>
-                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500 underline underline-offset-4 transition-colors">
+                <a href="https://github.com/manyavik" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500 underline underline-offset-4 transition-colors">
                   GitHub
                 </a>
                 <a href="https://docs.google.com/document/d/180aJI64cyjPJ2b-or9-uTTdq_aZl-tE_W2Df9TZPcao/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500 underline underline-offset-4 transition-colors">
@@ -338,11 +339,23 @@ I'm always looking for opportunities where I can keep growing and create thought
                 {/* Project Image */}
                 <div className="aspect-video bg-gray-100 flex items-center justify-center relative overflow-hidden">
                   {project.thumb ? (
-                    <img
-                      src={project.thumb}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                    />
+                    project.id === "roommate" ? (
+                      // ⭐ SPECIAL LAYOUT JUST FOR ROOMMATEHUB
+                      <div className="w-full h-full bg-purple-50 flex items-center justify-center rounded-lg overflow-hidden">
+                        <img
+                          src={project.thumb}
+                          alt={project.title}
+                          className="h-[90%] object-contain drop-shadow-lg"
+                        />
+                      </div>
+                    ) : (
+                      //default layout
+                      <img
+                        src={project.thumb}
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                      />
+                    )
                   ) : (
                     <span className="text-sm text-gray-400">{project.title}</span>
                   )}
