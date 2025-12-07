@@ -250,7 +250,7 @@ I'm always looking for opportunities where I can keep growing and create thought
                 <a href="https://github.com/manyavik" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500 underline underline-offset-4 transition-colors">
                   GitHub
                 </a>
-                <a href="https://docs.google.com/document/d/180aJI64cyjPJ2b-or9-uTTdq_aZl-tE_W2Df9TZPcao/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500 underline underline-offset-4 transition-colors">
+                <a href="https://drive.google.com/file/d/180aJI64cyjPJ2b-or9-uTTdq_aZl-tE_W2Df9TZPcao/preview" rel="noopener noreferrer" className="text-gray-600 hover:text-pink-500 underline underline-offset-4 transition-colors">
                   Resume
                 </a>
               </div>
