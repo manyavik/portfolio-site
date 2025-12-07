@@ -1,16 +1,47 @@
-# React + Vite
+# 💫 Manya Vikram – Portfolio Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repo contains the source code for my personal portfolio website.  
+I built this to showcase my projects, experience, and ongoing work across SWE, FinTech, and Product.
 
-Currently, two official plugins are available:
+The site is fully designed and developed by me using **React + TailwindCSS**, and deployed on **AWS Amplify** with a custom domain.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ✨ Features
+- Responsive, minimal UI
+- Filterable project sections (FinTech, SWE, Product)
+- Story-style project popups with images + descriptions
+- Smooth animations and interactions
+- Custom domain + HTTPS via AWS Amplify
+- Mobile-first design
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
+- **React**
+- **JavaScript / JSX**
+- **TailwindCSS**
+- **AWS Amplify Hosting**
+- **Git + GitHub**
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🚀 Deployment
+Hosted using **AWS Amplify** with automatic deployments on every push to `main`.
+
+**Live site:** https://manyavikram.com
+
+---
+
+## 📦 Running Locally
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server
+npm run dev
+
+```
+## 📬 Contact
+Feel free to reach out via email or LinkedIn — both are linked on the site!

@@ -129,7 +129,7 @@ export default function App() {
       image: visaTeamImg,
       heading: 'Presenting recommendations to Visa DPS leadership',
       body:
-        'At the end of the engagement, we presented our findings and recommendations to Visa DPS leaders, walking through our research, capability gaps, and proposed roadmap. The presentation reinforced how much I enjoy translating technical analysis into clear stories for non-technical stakeholders in the fintech space.',
+        'At the end of the engagement, we presented our findings and recommendations to Visa DPS leaders, walking through our research, capability gaps, and proposed roadmap.',
     },
   ];
 
@@ -151,7 +151,7 @@ export default function App() {
     {
       id: 'ai',
       image: CLai,
-      heading: 'Presenting recommendations to Visa DPS leadership',
+      heading: 'AI Evaluations',
       body:
         'This screen displays an AI-generated performance evaluation that synthesizes KPI data, peer feedback, and historical trends. I implemented the backend endpoints powering this feature, enabling automated recommendations for engineering growth areas. The result is a more consistent, unbiased evaluation flow that helps managers support their teams more effectively.'
     },
