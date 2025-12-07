@@ -50,8 +50,8 @@ export default function App() {
       id: 'visa',
       title: 'Visa FinTech Consulting',
       type: 'popup',
-      description: 'Led technical analysis of competitor technology providers for Visa Debit Processing Services. Conducted comprehensive research and presented strategic recommendations to executives.',
-      keywords: { product: ['strategic', 'research', 'recommendations'], swe: ['technical', 'analysis'], fintech: ['Visa', 'FinTech', 'Debit Processing'] },
+      description: 'Performed technical analysis of the payments processing ecosystem, focusing on Visa Debit Processing Service positioning. Conducted comprehensive research and presented strategic recommendations to Visa executives.',
+      keywords: { product: ['strategic', 'research', 'recommendations', 'positioning'], swe: ['technical', 'analysis'], fintech: ['payments processing', 'Visa Debit Processing'] },
       tags: ['Consulting', 'FinTech', 'Research'],
       thumb: visaTeamImg
     },
@@ -59,9 +59,9 @@ export default function App() {
       id: 'cirrus',
       title: 'CirrusLabs KPI Dashboard',
       type: 'popup',
-      description: 'Built full-stack KPI dashboard for company-wide performance tracking. Used React, Django, NeonDB, and deployed to Microsoft Azure.',
+      description: 'Built full-stack KPI dashboard for company-wide performance tracking, leveraging requirements from company executives. Used React, Django, NeonDB, and deployed to Microsoft Azure.',
       keywords: { product: ['dashboard', 'performance tracking'], swe: ['full-stack', 'React', 'Django', 'NeonDB', 'Azure'], fintech: [] },
-      tags: ['Full-Stack', 'React', 'Django', 'Azure'],
+      tags: ['Full-Stack', 'Cloud Services', 'Databases'],
       thumb: CLkpi,
       content: {
         images: [],
@@ -73,37 +73,37 @@ export default function App() {
       title: 'RoommateHub',
       type: 'link',
       link: 'https://github.com/manyavik/RoommateHub.git',
-      description: 'Platform connecting UGA students with compatible roommates through intelligent matching based on lifestyle preferences and habits.',
-      keywords: { product: ['Platform', 'matching', 'preferences'], swe: ['intelligent'], fintech: [] },
+      description: 'Building an iOS application for roommates to organize shared tasks and split expenses, using Swift, WidgetKit, Stripe API, and Firebase for real-time updates.',
+      keywords: { product: ['application', 'real-time updates'], swe: ['Swift', 'WidgetKit', 'Firebase', 'iOS application'], fintech: ['Stripe API', 'expenses'] },
       tags: ['Personal Project', 'Full-Stack', 'Product Design'],
       thumb: phoneShot
     },
     {
       id: 'ktp',
-      title: 'Co-Founded Kappa Theta Pi',
+      title: 'Co-Founder & VP of Prof Dev @ Kappa Theta Pi',
       type: 'link',
       link: 'https://ktpgeorgia.com/#leadership',
-      description: 'Co-founded technology fraternity at UGA. Grew to 50+ members in inaugural year. Lead professional development and portfolio website initiative for art students.',
-      keywords: { product: ['Co-founded', 'Grew', 'professional development'], swe: ['technology', 'website'], fintech: [] },
-      tags: ['Leadership', 'Community Building'],
+      description: 'Co-founded club to create a community for students who are passionate about technology, growing to over 50+ members in our inaugural year. Leading professional development initiatives + helping build portfolio websites.',
+      keywords: { product: ['Co-founded', 'growing', 'Leading'], swe: ['technology', 'build portfolio websites'], fintech: [] },
+      tags: ['Leadership', 'Community Building', 'Professional Development'],
       thumb: ktpLogo
     },
     {
       id: 'shecancode',
-      title: 'SheCanCode Treasurer',
+      title: 'Treasurer @ SheCanCode',
       type: 'link',
       link: 'https://www.uga-shecancode.dev/contact',
-      description: 'Launched fundraising initiatives raising $500+. Manage budget for Women in CS mentorship program empowering women in technology.',
-      keywords: { product: ['Launched', 'fundraising', 'Manage budget', 'program'], swe: ['technology'], fintech: ['budget'] },
-      tags: ['Leadership', 'Finance'],
+      description: 'Launched fundraising initiatives and managing budget for club activities: mentorship program empowering women in technology.',
+      keywords: { product: ['Launched', 'program'], swe: ['technology'], fintech: ['fundraising', 'managing budget'] },
+      tags: ['Leadership', 'Community Building', 'Finance'],
       thumb: sheCanCodePic
     },
     {
       id: 'ai-research',
       title: 'AI Research Assistant',
       type: 'disabled',
-      description: 'Building intelligent research tools at UGA. More details coming soon.',
-      keywords: { product: ['research tools'], swe: ['Building', 'intelligent'], fintech: [] },
+      description: 'Building intelligent research tools at UGA, focusing on leveraging Artificial Intelligence to optimize education initiatives. More details coming soon!',
+      keywords: { product: ['research tools', 'education initiatives'], swe: ['Building', 'Artificial Intelligence'], fintech: [] },
       tags: ['AI/ML', 'Research', 'Coming Soon'],
       image: 'ai-cover'
     }
@@ -414,7 +414,7 @@ I'm always looking for opportunities where I can keep growing and create thought
             <div>
               <h3 className="text-sm font-semibold text-pink-600 uppercase tracking-wider mb-4">Frameworks & Tools</h3>
               <div className="flex flex-wrap gap-2">
-                {['React', 'Django', 'MongoDB', 'Git', 'GitHub', 'Azure', 'AWS'].map(skill => (
+                {['React', 'Django', 'MongoDB', 'NeonDB', 'Firebase', 'Git', 'GitHub', 'Azure', 'AWS'].map(skill => (
                   <span key={skill} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded">
                     {skill}
                   </span>
@@ -425,7 +425,7 @@ I'm always looking for opportunities where I can keep growing and create thought
             <div>
               <h3 className="text-sm font-semibold text-pink-600 uppercase tracking-wider mb-4">Other</h3>
               <div className="flex flex-wrap gap-2">
-                {['VS Code', 'Jira', 'Agile/Scrum', 'Product Management'].map(skill => (
+                {['VS Code', 'XCode', 'Agile/Scrum', 'Product/Project Management'].map(skill => (
                   <span key={skill} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded">
                     {skill}
                   </span>
